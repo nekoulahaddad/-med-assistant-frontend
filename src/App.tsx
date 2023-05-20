@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import DragDrop from "./components/DragAndDrop";
+import EnhancedTable from "./components/EnhancedTable";
+import { Container, Grid } from "@mui/material";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <Container sx={{ mt: 2 }} maxWidth="lg">
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ mb: 2 }}
         >
-          Learn React
-        </a>
-      </header>
+          <DragDrop />
+        </Grid>
+        <EnhancedTable />
+      </Container>
     </div>
   );
 }
