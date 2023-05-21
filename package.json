@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fontsource/roboto": "^5.0.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.1",
     "@mui/styled-engine-sc": "^5.12.0",

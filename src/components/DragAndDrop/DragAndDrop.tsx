@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import styles from "./styles.module.css";
-import LinearWithValueLabel from "./parts";
+import LinearWithValueLabel from "./parts/LinearWithValueLabel";
+import DragAndDropCustom from "./parts/DragAndDropCustom/DragAndDropCustom";
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
@@ -13,12 +14,13 @@ function DragDrop() {
   };
 
   return (
-    <>
+    <div className={styles.FileUploader}>
       <FileUploader
         label="Загрузите протокол пожалуйста"
         handleChange={handleChange}
         name="file"
         types={fileTypes}
+        children={<DragAndDropCustom />}
       />
       {file.type && (
         <div className={styles.fileInfoBlock}>
@@ -27,7 +29,7 @@ function DragDrop() {
           <LinearWithValueLabel />
         </div>
       )}
-    </>
+    </div>
   );
 }
 
