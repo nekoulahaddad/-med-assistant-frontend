@@ -1,5 +1,4 @@
 import React from "react";
-import EnhancedTable from "./components/EnhancedTable";
 import WrapperCompoenent from "./components/WrapperComponent";
 import DragDrop from "./components/DragAndDrop";
 
