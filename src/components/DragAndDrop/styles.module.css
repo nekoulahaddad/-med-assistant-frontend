@@ -8,5 +8,11 @@
   padding: 0.4rem;
   border-radius: 10px;
   border: 1px solid #ccc;
-  width: 340px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.title {
+  margin-top: 5px;
+  color: rgb(72, 105, 34);
 }
