@@ -1,19 +1,39 @@
-import React from "react";
-import WrapperComponent from "./components/WrapperComponent";
-import DragDrop from "./components/DragAndDrop";
-import FilterBlock from "./components/FilterBlock";
-
+import React, { useEffect } from "react";
+import { useNavigate, Outlet } from "react-router-dom";
 import "./App.css";
-
-let isLogin = false
+import Header from "./components/Header";
+import Footer from "./components/Footer/Footer";
+import { Alert } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./store/store";
+import { clearError } from "./store/reducers/mainSlice";
+import WrapperComponent from "./components/WrapperComponent";
 
 function App() {
+  let navigate = useNavigate();
+  const Dispatch = useDispatch<AppDispatch>();
+  const { isError } = useSelector((state: RootState) => state.main);
+  useEffect(() => {
+    navigate("/upload");
+  }, [navigate]);
+
   return (
     <div className="App">
-      <WrapperComponent isLogin={isLogin}>
-        {/* <DragDrop /> */}
-        <FilterBlock />
+      <Header />
+      {isError && (
+        <Alert
+          style={{ margin: "10px" }}
+          onClose={() => Dispatch(clearError())}
+          severity="error"
+        >
+          Техническая Ошибка попробуйте ещё раз!
+        </Alert>
+      )}
+      <WrapperComponent>
+        <Outlet />
       </WrapperComponent>
+      <div style={{ height: "50px" }} />
+      <Footer />
     </div>
   );
 }

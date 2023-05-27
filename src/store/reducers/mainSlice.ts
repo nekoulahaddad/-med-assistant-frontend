@@ -15,14 +15,36 @@ export const getAllReports = createAsyncThunk(
   }
 );
 
+export const addReport = createAsyncThunk(
+  "main/addReport",
+  async (file: any) => {
+    var formData = new FormData();
+    formData.append("file", file);
+    try {
+      const response = await api.post(endpoints.addProtocol, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response;
+    } catch (err) {
+      return err;
+    }
+  }
+);
+
 type IMainState = {
   isLoading: boolean;
   reports: TReport[];
+  filters: any;
+  isError: boolean;
 };
 
 export const initialState: IMainState = {
   isLoading: false,
   reports: [],
+  filters: null,
+  isError: false,
 };
 
 export const mainSlice = createSlice({
@@ -31,6 +53,9 @@ export const mainSlice = createSlice({
   reducers: {
     changeLoading: (state, action) => {
       state.isLoading = action.payload;
+    },
+    clearError: (state) => {
+      state.isError = false;
     },
   },
   extraReducers: (builder) => {
@@ -41,15 +66,30 @@ export const mainSlice = createSlice({
       getAllReports.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false;
-        state.reports = action.payload;
+        state.reports = action.payload.data;
       }
     );
     builder.addCase(getAllReports.rejected, (state) => {
       state.isLoading = false;
+      state.isError = true;
+    });
+    builder.addCase(addReport.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      addReport.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.filters = action.payload;
+      }
+    );
+    builder.addCase(addReport.rejected, (state) => {
+      state.isLoading = false;
+      state.isError = true;
     });
   },
 });
 
-export const { changeLoading } = mainSlice.actions;
+export const { changeLoading, clearError } = mainSlice.actions;
 
 export default mainSlice.reducer;

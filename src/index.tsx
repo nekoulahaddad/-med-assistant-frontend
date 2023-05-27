@@ -9,14 +9,40 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DragDrop from "./components/DragAndDrop";
+import FilterBlock from "./components/FilterBlock";
+import ProtocolsList from "./components/ProtocolsList";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "upload/",
+        element: <DragDrop />,
+      },
+      {
+        path: "files/",
+        element: <ProtocolsList />,
+      },
+      {
+        path: "report/:fileId",
+        element: <FilterBlock />,
+      },
+    ],
+  },
+]);
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );
