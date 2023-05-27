@@ -1,7 +1,7 @@
 import React from "react";
 import WrapperCompoenent from "./components/WrapperComponent";
 import DragDrop from "./components/DragAndDrop";
-import FilterBlock from "./components/FilterBlock"
+// import FilterBlock from "./components/FilterBlock";
 
 import "./App.css";
 
@@ -9,9 +9,8 @@ function App() {
   return (
     <div className="App">
       <WrapperCompoenent>
-        {/* <DragDrop /> */}
-        <FilterBlock />
-        <EnhancedTable />
+        <DragDrop />
+        {/* <FilterBlock /> */}
       </WrapperCompoenent>
     </div>
   );
