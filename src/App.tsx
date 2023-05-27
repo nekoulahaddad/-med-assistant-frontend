@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import WrapperCompoenent from "./components/WrapperComponent";
 import { useNavigate, Outlet } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
@@ -8,6 +7,7 @@ import { Alert } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store/store";
 import { clearError } from "./store/reducers/mainSlice";
+import WrapperComponent from "./components/WrapperComponent";
 
 function App() {
   let navigate = useNavigate();
@@ -29,9 +29,9 @@ function App() {
           Техническая Ошибка попробуйте ещё раз!
         </Alert>
       )}
-      <WrapperCompoenent>
+      <WrapperComponent>
         <Outlet />
-      </WrapperCompoenent>
+      </WrapperComponent>
       <div style={{ height: "50px" }} />
       <Footer />
     </div>

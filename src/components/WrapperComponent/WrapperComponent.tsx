@@ -5,7 +5,7 @@ import LoadingUi from "../LoadingUi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
-const WrapperCompoenent = ({ children }: { children: React.ReactNode }) => {
+const WrapperComponent = ({ children }: { children: React.ReactNode }) => {
   const { isLoading } = useSelector((state: RootState) => state.main);
   return (
     <Container sx={{ mt: 5 }} maxWidth="lg">
@@ -17,4 +17,4 @@ const WrapperCompoenent = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default WrapperCompoenent;
+export default WrapperComponent;
