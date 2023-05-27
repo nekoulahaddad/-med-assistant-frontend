@@ -10,7 +10,7 @@ const DragAndDropCustom = () => {
       <CloudUploadOutlinedIcon className={styles.uploadIcon} />
       <Typography>
         Перетащите Отчёт или{" "}
-        <Typography color="rgb(72, 105, 34)" component="span">
+        <Typography color="#89cff0" component="span">
           выберите на компьютере
         </Typography>
       </Typography>
