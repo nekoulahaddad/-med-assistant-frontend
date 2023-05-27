@@ -5,18 +5,23 @@ import Header from "../Header/Header";
 import LoadingUi from "../LoadingUi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import Login from "../Login/Login";
 
-const WrapperCompoenent = ({ children }: { children: React.ReactNode }) => {
+const WrapperComponent = ({ children, isLogin }: { children: React.ReactNode, isLogin: Boolean }) => {
   const { isLoading } = useSelector((state: RootState) => state.main);
   return (
     <Container sx={{ mt: 5 }} maxWidth="lg">
-      <Header />
-      <div className={styles.appWrapper}>
-        {isLoading && <LoadingUi />}
-        {children}
-      </div>
+      {isLogin ? (
+        <>
+          <Header />
+          <div className={styles.appWrapper}>
+            {isLoading && <LoadingUi />}
+            {children}
+          </div>
+        </>) 
+      : <Login />}
     </Container>
   );
 };
 
-export default WrapperCompoenent;
+export default WrapperComponent;

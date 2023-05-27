@@ -1,17 +1,19 @@
 import React from "react";
-import WrapperCompoenent from "./components/WrapperComponent";
+import WrapperComponent from "./components/WrapperComponent";
 import DragDrop from "./components/DragAndDrop";
-// import FilterBlock from "./components/FilterBlock";
+import FilterBlock from "./components/FilterBlock";
 
 import "./App.css";
+
+let isLogin = false
 
 function App() {
   return (
     <div className="App">
-      <WrapperCompoenent>
-        <DragDrop />
-        {/* <FilterBlock /> */}
-      </WrapperCompoenent>
+      <WrapperComponent isLogin={isLogin}>
+        {/* <DragDrop /> */}
+        <FilterBlock />
+      </WrapperComponent>
     </div>
   );
 }
