@@ -22,7 +22,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <>error</>,
     children: [
       {
         path: "upload/",

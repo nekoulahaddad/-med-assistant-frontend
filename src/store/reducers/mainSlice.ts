@@ -37,12 +37,14 @@ type IMainState = {
   isLoading: boolean;
   reports: TReport[];
   filters: any;
+  isError: boolean;
 };
 
 export const initialState: IMainState = {
   isLoading: false,
   reports: [],
   filters: null,
+  isError: false,
 };
 
 export const mainSlice = createSlice({
@@ -51,6 +53,9 @@ export const mainSlice = createSlice({
   reducers: {
     changeLoading: (state, action) => {
       state.isLoading = action.payload;
+    },
+    clearError: (state) => {
+      state.isError = false;
     },
   },
   extraReducers: (builder) => {
@@ -66,6 +71,7 @@ export const mainSlice = createSlice({
     );
     builder.addCase(getAllReports.rejected, (state) => {
       state.isLoading = false;
+      state.isError = true;
     });
     builder.addCase(addReport.pending, (state) => {
       state.isLoading = true;
@@ -79,10 +85,11 @@ export const mainSlice = createSlice({
     );
     builder.addCase(addReport.rejected, (state) => {
       state.isLoading = false;
+      state.isError = true;
     });
   },
 });
 
-export const { changeLoading } = mainSlice.actions;
+export const { changeLoading, clearError } = mainSlice.actions;
 
 export default mainSlice.reducer;
