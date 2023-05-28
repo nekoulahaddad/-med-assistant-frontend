@@ -20,7 +20,7 @@ const ProtocolsList = () => {
 
   return (
     <div className={styles.ProtocolsList}>
-      {reports.length > 0 && (
+      {reports?.length > 0 && (
         <>
           <Typography variant="h5" fontWeight="500" mb="30px" gutterBottom>
             Выберите протокол!

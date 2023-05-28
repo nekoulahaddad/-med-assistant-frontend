@@ -5,19 +5,19 @@ import { TReport } from "../../types/main";
 
 export const getAllReports = createAsyncThunk(
   "main/getAllReports",
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await api.get(endpoints.getAllReports, {});
       return response;
-    } catch (err) {
-      return err;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
 
 export const addReport = createAsyncThunk(
   "main/addReport",
-  async (file: any) => {
+  async (file: any, { rejectWithValue }) => {
     var formData = new FormData();
     formData.append("file", file);
     try {
@@ -27,8 +27,8 @@ export const addReport = createAsyncThunk(
         },
       });
       return response;
-    } catch (err) {
-      return err;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -38,6 +38,7 @@ type IMainState = {
   reports: TReport[];
   filters: any;
   isError: boolean;
+  errorMessage: string;
 };
 
 export const initialState: IMainState = {
@@ -45,6 +46,7 @@ export const initialState: IMainState = {
   reports: [],
   filters: null,
   isError: false,
+  errorMessage: "",
 };
 
 export const mainSlice = createSlice({
@@ -69,10 +71,14 @@ export const mainSlice = createSlice({
         state.reports = action.payload.data;
       }
     );
-    builder.addCase(getAllReports.rejected, (state) => {
-      state.isLoading = false;
-      state.isError = true;
-    });
+    builder.addCase(
+      getAllReports.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload?.message || "";
+      }
+    );
     builder.addCase(addReport.pending, (state) => {
       state.isLoading = true;
     });
@@ -83,9 +89,10 @@ export const mainSlice = createSlice({
         state.filters = action.payload;
       }
     );
-    builder.addCase(addReport.rejected, (state) => {
+    builder.addCase(addReport.rejected, (state, action: PayloadAction<any>) => {
       state.isLoading = false;
       state.isError = true;
+      state.errorMessage = action.payload?.message || "";
     });
   },
 });

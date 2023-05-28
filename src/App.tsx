@@ -11,7 +11,9 @@ import WrapperComponent from "./components/WrapperComponent";
 function App() {
   let navigate = useNavigate();
   const Dispatch = useDispatch<AppDispatch>();
-  const { isError } = useSelector((state: RootState) => state.main);
+  const { isError, errorMessage } = useSelector(
+    (state: RootState) => state.main
+  );
   useEffect(() => {
     navigate("/upload");
   }, [navigate]);
@@ -25,7 +27,9 @@ function App() {
           onClose={() => Dispatch(clearError())}
           severity="error"
         >
-          Техническая Ошибка попробуйте ещё раз!
+          {errorMessage
+            ? errorMessage
+            : "Техническая Ошибка попробуйте ещё раз!"}
         </Alert>
       )}
       <WrapperComponent>
