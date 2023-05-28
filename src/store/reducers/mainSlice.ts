@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice, AsyncThunkAction } from "@reduxjs/toolkit";
 import { endpoints } from "../../api/endpoints";
 import { api } from "../../api/config";
 import { TReport } from "../../types/main";
@@ -32,6 +32,37 @@ export const addReport = createAsyncThunk(
     }
   }
 );
+
+export const getReport = createAsyncThunk(
+  "main/getReport",
+  async (arg: any) => {
+    const { doctor, fileId } = arg
+    console.log(doctor, fileId)
+    try {
+      const response = await api.post(endpoints.getReport, `
+        "fileId": "faf0ce4219ae66874e6842cb7b92889c",
+        "filters": {
+          "doctor": [
+            "врач-кардиолог"
+          ],
+          "code: [
+            "J30.2",
+            "H65.9",
+            "I25.1"
+          ]
+        }
+      `, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      return response;
+    } catch (error) {
+      return error
+    }
+  }
+)
 
 type IMainState = {
   isLoading: boolean;

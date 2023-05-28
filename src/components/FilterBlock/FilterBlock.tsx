@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+
+import FilterTable from "./Components/FilterTable";
 
 import { Grid, TextField, Autocomplete } from "@mui/material";
 
@@ -8,11 +10,31 @@ import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
 
+import { useDispatch, useSelector } from "react-redux";
+// import { getAllReports } from "../../store/reducers/mainSlice";
+import { AppDispatch, RootState } from "../../store/store";
+
+import { getReport } from "../../store/reducers/mainSlice";
+
+import { useParams } from "react-router-dom"
+
 
 const FilterBlock = () => {
     const [dateRange, setDateRange] = useState<[string | null, string | null]>([null, null])
 
-    console.log(dateRange)
+    const dispatch = useDispatch()
+    const { reports } = useSelector((state: RootState) => state.main);
+    const { fileId } = useParams()
+
+    let report = reports.filter(report => report.fileId === fileId)
+    console.log(report)
+
+    useEffect(() => {
+        //@ts-ignore
+        dispatch(getReport({doctor: "врач-кардиолог", fileId: "faf0ce4219ae66874e6842cb7b92889c"}))
+    }, [dispatch])
+
+    
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -37,7 +59,7 @@ const FilterBlock = () => {
                         disablePortal
                         size="small"
                         id="department"
-                        options={["Отделение №1", "Отделение №2", "Отделение №3"]} 
+                        options={report ? report[0]?.filters[0]?.diagnosis : ['Нет значений']} 
                         renderInput={(params) => <TextField {...params} label="Отделение" />}
                     />
                 </Grid>
@@ -53,6 +75,9 @@ const FilterBlock = () => {
                         localeText={{ start: 'Начало периода', end: 'Конец периода' }} 
                     />
                 </DemoContainer>
+                </Grid>
+                <Grid item xs={12}>
+                    <FilterTable />
                 </Grid>
             </Grid>
         </LocalizationProvider>

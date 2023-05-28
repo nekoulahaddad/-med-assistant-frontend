@@ -3,4 +3,9 @@ export type TReport = {
   status: string;
   fileName: string;
   created_at: string;
+  filters: [
+    {
+      diagnosis: string[]
+    }
+  ]
 };

@@ -13,6 +13,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DragDrop from "./components/DragAndDrop";
 import FilterBlock from "./components/FilterBlock";
 import ProtocolsList from "./components/ProtocolsList";
+import Login from "./components/Login/Login";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: "report/:fileId",
         element: <FilterBlock />,
       },
+      {
+        path: "login/",
+        element: <Login />,
+      }
     ],
   },
 ]);
