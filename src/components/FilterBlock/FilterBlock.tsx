@@ -16,7 +16,7 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 const FilterBlock = () => {
   const { reports } = useSelector((state: RootState) => state.main);
   const [doctor, setDoctor] = useState("");
-  const [appointments, setAppointments] = useState("");
+  const [code, setCode] = useState("");
 
   const { fileId } = useParams();
   const Dispatch = useDispatch<AppDispatch>();
@@ -27,7 +27,7 @@ const FilterBlock = () => {
 
   const clearFilters = () => {
     setDoctor("");
-    setAppointments("");
+    setCode("");
   };
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -56,14 +56,16 @@ const FilterBlock = () => {
         <Grid item md={5} xs={10}>
           <Autocomplete
             onInputChange={(event, value) => {
-              setAppointments(value);
+              setCode(value);
             }}
             disablePortal
-            value={appointments}
+            value={code}
             size="small"
             id="department"
-            options={report?.filters?.doctors || []}
-            renderInput={(params) => <TextField {...params} label="Диагноз" />}
+            options={report?.filters?.codes || []}
+            renderInput={(params) => (
+              <TextField {...params} label="Код МКБ-10" />
+            )}
           />
         </Grid>
         <Grid
@@ -83,7 +85,7 @@ const FilterBlock = () => {
                   fileId: fileId,
                   filters: {
                     doctor: doctor ? [doctor] : [],
-                    code: appointments ? [appointments] : [],
+                    code: code ? [code] : [],
                   },
                 })
               )

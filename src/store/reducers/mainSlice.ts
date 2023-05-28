@@ -3,11 +3,18 @@ import { endpoints } from "../../api/endpoints";
 import { api } from "../../api/config";
 import { TReport } from "../../types/main";
 
+const getToken = () => `Bearer ${localStorage.getItem("token")}`;
+
 export const getAllReports = createAsyncThunk(
   "main/getAllReports",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get(endpoints.report, {});
+      const response = await api.get(endpoints.report, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      });
       return response;
     } catch (err: any) {
       return rejectWithValue(err.response.data);
@@ -19,7 +26,11 @@ export const startAnalysis = createAsyncThunk(
   "main/startAnalysis",
   async (data: any, { rejectWithValue }) => {
     try {
-      const response = await api.post(endpoints.report, data, {});
+      const response = await api.post(endpoints.report, data, {
+        headers: {
+          Authorization: getToken(),
+        },
+      });
       return response;
     } catch (err: any) {
       return rejectWithValue(err.response.data);
@@ -36,6 +47,7 @@ export const addReport = createAsyncThunk(
       const response = await api.post(endpoints.addProtocol, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: getToken(),
         },
       });
       return response;
@@ -52,6 +64,7 @@ type IMainState = {
   isError: boolean;
   errorMessage: string;
   finalReport: any;
+  isLoggedIn: boolean;
 };
 
 export const initialState: IMainState = {
@@ -61,6 +74,7 @@ export const initialState: IMainState = {
   isError: false,
   errorMessage: "",
   finalReport: [],
+  isLoggedIn: false,
 };
 
 export const mainSlice = createSlice({
@@ -76,6 +90,9 @@ export const mainSlice = createSlice({
     handleError: (state, action) => {
       state.isError = true;
       state.errorMessage = action.payload;
+    },
+    handleLoginIn: (state, action) => {
+      state.isLoggedIn = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -135,6 +152,7 @@ export const mainSlice = createSlice({
   },
 });
 
-export const { changeLoading, clearError, handleError } = mainSlice.actions;
+export const { changeLoading, clearError, handleError, handleLoginIn } =
+  mainSlice.actions;
 
 export default mainSlice.reducer;

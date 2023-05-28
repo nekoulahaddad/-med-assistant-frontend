@@ -22,7 +22,7 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element: localStorage.getItem("token") ? <App /> : <Login />,
+    element: <App />,
     children: [
       {
         path: "upload/",

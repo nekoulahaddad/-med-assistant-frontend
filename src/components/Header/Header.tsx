@@ -6,8 +6,17 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import ListIcon from "@mui/icons-material/List";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { handleLoginIn } from "../../store/reducers/mainSlice";
 
 const Header = () => {
+  const Dispatch = useDispatch<AppDispatch>();
+
+  const handleLogout = () => {
+    Dispatch(handleLoginIn(false));
+    localStorage.removeItem("token");
+  };
   const testName = "Иван Иванович";
   return (
     <Grid
@@ -46,7 +55,7 @@ const Header = () => {
       </Grid>
       <Grid display="flex" alignItems="center">
         <IconButton color="inherit" aria-label="delete">
-          <LogoutIcon />
+          <LogoutIcon onClick={handleLogout} />
         </IconButton>
         <Typography mr={2} variant="body1" component="h2">
           {testName}
