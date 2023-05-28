@@ -1,5 +1,5 @@
 export const endpoints = {
-  getAllReports: "/reports",
+  getAllReports: "v1/report",
   login: "/auth/login",
-  addProtocol: "/reports/protocol",
+  addProtocol: "/v1/protocol",
 };
