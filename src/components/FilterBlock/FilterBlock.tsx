@@ -13,6 +13,8 @@ import { TReport } from "../../types/main";
 import { startAnalysis } from "../../store/reducers/mainSlice";
 import DataTable from "../DataTable";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
+import { GraphUi } from "../GraphUi/GraphUi";
+
 const FilterBlock = () => {
   const { reports } = useSelector((state: RootState) => state.main);
   const [doctor, setDoctor] = useState("");
@@ -116,6 +118,17 @@ const FilterBlock = () => {
         </Grid>
       </Grid>
       <DataTable />
+
+      <Grid
+        mt={5}
+        className={styles.analyzeButton}
+        display="flex"
+        item
+        md={5}
+        xs={10}
+      >
+        <GraphUi />
+      </Grid>
     </LocalizationProvider>
   );
 };

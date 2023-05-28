@@ -65,6 +65,7 @@ type IMainState = {
   errorMessage: string;
   finalReport: any;
   isLoggedIn: boolean;
+  doctorsStat: any;
 };
 
 export const initialState: IMainState = {
@@ -75,6 +76,7 @@ export const initialState: IMainState = {
   errorMessage: "",
   finalReport: [],
   isLoggedIn: false,
+  doctorsStat: null,
 };
 
 export const mainSlice = createSlice({
@@ -137,7 +139,8 @@ export const mainSlice = createSlice({
       startAnalysis.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false;
-        state.finalReport = action.payload.data;
+        state.finalReport = action.payload.data.reports;
+        state.doctorsStat = action.payload.data.doctorsStat;
       }
     );
     builder.addCase(
