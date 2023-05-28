@@ -7,7 +7,19 @@ export const getAllReports = createAsyncThunk(
   "main/getAllReports",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get(endpoints.getAllReports, {});
+      const response = await api.get(endpoints.report, {});
+      return response;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const startAnalysis = createAsyncThunk(
+  "main/startAnalysis",
+  async (data: any, { rejectWithValue }) => {
+    try {
+      const response = await api.post(endpoints.report, data, {});
       return response;
     } catch (err: any) {
       return rejectWithValue(err.response.data);
@@ -39,6 +51,7 @@ type IMainState = {
   filters: any;
   isError: boolean;
   errorMessage: string;
+  finalReport: any;
 };
 
 export const initialState: IMainState = {
@@ -47,6 +60,7 @@ export const initialState: IMainState = {
   filters: null,
   isError: false,
   errorMessage: "",
+  finalReport: [],
 };
 
 export const mainSlice = createSlice({
@@ -58,6 +72,10 @@ export const mainSlice = createSlice({
     },
     clearError: (state) => {
       state.isError = false;
+    },
+    handleError: (state, action) => {
+      state.isError = true;
+      state.errorMessage = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -94,9 +112,29 @@ export const mainSlice = createSlice({
       state.isError = true;
       state.errorMessage = action.payload?.message || "";
     });
+
+    builder.addCase(startAnalysis.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      startAnalysis.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.finalReport = action.payload.data;
+      }
+    );
+    builder.addCase(
+      startAnalysis.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload?.message || "";
+        state.finalReport = [];
+      }
+    );
   },
 });
 
-export const { changeLoading, clearError } = mainSlice.actions;
+export const { changeLoading, clearError, handleError } = mainSlice.actions;
 
 export default mainSlice.reducer;
