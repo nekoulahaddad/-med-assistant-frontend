@@ -14,9 +14,9 @@ function App() {
   const { isError, errorMessage } = useSelector(
     (state: RootState) => state.main
   );
-  useEffect(() => {
-    navigate("/upload");
-  }, [navigate]);
+  // useEffect(() => {
+  //   navigate("/login");
+  // }, [navigate]);
 
   return (
     <div className="App">

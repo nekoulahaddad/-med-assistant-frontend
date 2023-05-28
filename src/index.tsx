@@ -13,7 +13,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DragDrop from "./components/DragAndDrop";
 import FilterBlock from "./components/FilterBlock";
 import ProtocolsList from "./components/ProtocolsList";
-import Login from "./components/Login/Login";
+import Login from "./components/Login";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -22,7 +22,7 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: localStorage.getItem("token") ? <App /> : <Login />,
     children: [
       {
         path: "upload/",
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       {
         path: "login/",
         element: <Login />,
-      }
+      },
     ],
   },
 ]);

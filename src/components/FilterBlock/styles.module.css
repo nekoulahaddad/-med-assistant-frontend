@@ -1,0 +1,6 @@
+@media (max-width: 900px) {
+  .analyzeButton {
+    justify-content: center;
+    width: 100%;
+  }
+}
