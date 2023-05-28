@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
-import Footer from "./components/Footer/Footer";
 import { Alert } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store/store";
@@ -33,7 +32,6 @@ function App() {
         <Outlet />
       </WrapperComponent>
       <div style={{ height: "50px" }} />
-      <Footer />
     </div>
   );
 }

@@ -2,3 +2,9 @@
   height: 50px;
   background-color: #89cff0;
 }
+
+@media (max-width: 600px) {
+  .linkText {
+    display: none;
+  }
+}

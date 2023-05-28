@@ -6,10 +6,8 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import styles from "./styles.module.css";
 import { Alert, AlertTitle, Typography } from "@mui/material";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { Link } from "react-router-dom";
 import { TReport } from "../../types/main";
-dayjs.extend(relativeTime);
 
 const ProtocolsList = () => {
   const Dispatch = useDispatch<AppDispatch>();
@@ -37,7 +35,7 @@ const ProtocolsList = () => {
                       severity="success"
                     >
                       <AlertTitle>{report.fileName}</AlertTitle>{" "}
-                      {dayjs(report?.created_at).fromNow()} —{" "}
+                      {dayjs(report?.created_at).format("DD/MM/YYYY LT")} —{" "}
                       <strong>успешно загружен!</strong>
                     </Alert>
                   </Link>
@@ -49,7 +47,7 @@ const ProtocolsList = () => {
                     severity="info"
                   >
                     <AlertTitle>{report.fileName}</AlertTitle>{" "}
-                    {dayjs(report?.created_at).fromNow()} —{" "}
+                    {dayjs(report?.created_at).format("DD/MM/YYYY LT")} —{" "}
                     <strong>загружается!</strong>
                   </Alert>
                 )}

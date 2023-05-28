@@ -17,22 +17,32 @@ const Header = () => {
       className={styles.header}
       color="#fff"
     >
-      <Grid display="flex" alignItems="center">
-        <IconButton color="inherit" aria-label="delete">
-          <Link to="/upload">
-            <MedicationLiquidIcon />
-          </Link>
-        </IconButton>
-        <IconButton color="inherit" aria-label="delete">
-          <Link to="/upload">
-            <UploadFileIcon />
-          </Link>
-        </IconButton>
-        <IconButton color="inherit" aria-label="delete">
-          <Link to="/files">
-            <ListIcon />
-          </Link>
-        </IconButton>
+      <Grid display="flex" ml={2} alignItems="center">
+        <Link style={{ display: "flex" }} to="/upload">
+          <MedicationLiquidIcon />
+        </Link>
+        <Link style={{ display: "flex", marginLeft: "10px" }} to="/upload">
+          <UploadFileIcon />
+          <Typography
+            className={styles.linkText}
+            variant="body1"
+            mt="1px"
+            ml="2px"
+          >
+            Загрузить протокол
+          </Typography>
+        </Link>
+        <Link style={{ display: "flex", marginLeft: "10px" }} to="/files">
+          <ListIcon />
+          <Typography
+            className={styles.linkText}
+            variant="body1"
+            mt="1px"
+            ml="2px"
+          >
+            Cписок протоколов
+          </Typography>
+        </Link>
       </Grid>
       <Grid display="flex" alignItems="center">
         <IconButton color="inherit" aria-label="delete">
